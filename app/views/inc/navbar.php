@@ -15,6 +15,12 @@
           <a class="nav-link" href="<?= URLROOT; ?>/pages/about">About</a>
         </li>
       </ul>
+        <?php if (isset($_SESSION['user_id'])) : ?>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="<?=
+                URLROOT; ?>/users/logout">Logout</a>
+            </li>
+        <?php else : ?>
         <ul class="navbar-nav ml-auto mb-2 mb-md-0">
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="<?=
@@ -23,6 +29,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?= URLROOT; ?>/users/login">Login</a>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
   </div>
