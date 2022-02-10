@@ -14,6 +14,12 @@
         <li class="nav-item">
           <a class="nav-link" href="<?= URLROOT; ?>/pages/about">About</a>
         </li>
+          <?php if (isset($_SESSION['user_id'])) : ?>
+              <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="<?=
+                  URLROOT; ?>/posts">Posts</a>
+              </li>
+          <?php endif; ?>
       </ul>
         <?php if (isset($_SESSION['user_id'])) : ?>
             <li class="nav-item">
