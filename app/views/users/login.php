@@ -19,11 +19,11 @@
                     <div class="row">
                         <div class="col">
                             <input type="submit" value="Login" class="btn
-                            btn-success btn-block">
+                            btn-success btn-block mt-3">
                         </div>
                         <div class="col">
                             <a href="<?php echo URLROOT; ?>/users/register"
-                               class="btn btn-light btn-block">Don't have an
+                               class="btn btn-light btn-block mt-3">Don't have an
                                 account? Register</a>
                         </div>
                     </div>
