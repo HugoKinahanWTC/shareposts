@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Post {
     private $db;
 
@@ -10,9 +12,7 @@ class Post {
     public function getPosts() {
         $this->db->query('SELECT *, 
                             posts.id as post_id, 
-                            users.id as user_id, 
-                            posts.created_at as posts_created_at, 
-                            users.created_at as users_created_at
+                            users.id as user_id 
                             FROM posts 
                             INNER JOIN users 
                             ON posts.user_id = users.id 

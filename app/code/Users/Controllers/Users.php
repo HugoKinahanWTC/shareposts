@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 class Users extends Controller {
     public function __construct() {
-        $this->userModel = $this->model('User');
+        $this->userModel = $this->model('Users', 'user');
     }
 
     public function register() {
@@ -65,7 +66,7 @@ class Users extends Controller {
                 $data['password'] = password_hash($data['password'],
                     PASSWORD_DEFAULT);
 
-                // Register User
+                // Register Users
                 if ($this->userModel->register($data)) {
                     flash('register_success', 'You are registered!');
                     redirect('users/login');
@@ -74,7 +75,7 @@ class Users extends Controller {
                 };
             } else {
                 // Load view with errors
-                $this->view('users/register', $data);
+                $this->view('users', 'register', $data);
             }
 
         } else {
@@ -90,7 +91,7 @@ class Users extends Controller {
               'confirm_password_err' => ''
             ];
 
-            $this->view('users/register', $data);
+            $this->view('users', 'register', $data);
         }
     }
 
@@ -122,7 +123,7 @@ class Users extends Controller {
 
             // Check for user/email
             if ($this->userModel->findUserByEmail($data['email'])) {
-                // User found
+                // Users found
             } else {
                 $data['email_err'] = 'No user found.';
             }
@@ -140,13 +141,13 @@ class Users extends Controller {
                     $this->createUserSession($loggedInUser);
                 } else {
                     $data['password_err'] = 'Incorrect password';
-                    $this->view('users/login', $data);
+                    $this->view('users', 'login', $data);
                 }
 
 
             } else {
                 // Load view with errors
-                $this->view('users/login', $data);
+                $this->view('users', 'login', $data);
             }
 
         } else {
@@ -158,7 +159,7 @@ class Users extends Controller {
                 'password_err' => ''
             ];
 
-            $this->view('users/login', $data);
+            $this->view('users', 'login', $data);
         }
     }
 

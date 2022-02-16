@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class User {
     private $db;
 
@@ -52,7 +54,7 @@ class User {
         }
     }
 
-    // Get User by ID
+    // Get Users by ID
     public function getUserById($id) {
         $this->db->query('SELECT * FROM users WHERE id = :id');
         // Bind values

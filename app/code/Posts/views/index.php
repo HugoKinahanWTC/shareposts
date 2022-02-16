@@ -16,7 +16,7 @@
     <h4 class="card-title"><?= $post->title; ?></h4>
     <div class="bg-light p-2 mb-3">
         Posted by <em><?= $post->name; ?></em> at <em><?=
-        $post->posts_created_at; ?></em>
+        $post->created_at; ?></em>
     </div>
     <p class="card-text"><?= $post->body; ?></p>
     <a href="<?= URLROOT; ?>/posts/show/<?= $post->post_id; ?>" class="btn

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * PDO Database Class
@@ -37,7 +38,7 @@ class Database {
     }
 
     // Prepare statement with query
-    public function query($sql) {
+    public function query(string $sql) {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
