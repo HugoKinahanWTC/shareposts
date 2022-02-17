@@ -10,15 +10,15 @@ declare(strict_types=1);
  */
 
 class Database {
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    private string $host = DB_HOST;
+    private string $user = DB_USER;
+    private string $pass = DB_PASS;
+    private string $dbname = DB_NAME;
 
     // data base handler
-    private $dbh;
-    private $stmt;
-    private $error;
+    private PDO $dbh;
+    private object $stmt;
+    private string $error;
 
     public function __construct() {
         // Set DSN
@@ -43,7 +43,7 @@ class Database {
     }
 
     // Bind values
-    public function bind($param, $value, $type = null) {
+    public function bind(string $param, mixed $value, $type = null) {
         if (is_null($type)) {
             switch (true) {
                 case is_int($value):
@@ -63,12 +63,12 @@ class Database {
     }
 
     // Execute the prepared statement
-    public function execute() {
+    public function execute(): bool {
         return $this->stmt->execute();
     }
 
     // Get result set as array of objects
-    public function resultSet() {
+    public function resultSet(): array {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -80,7 +80,7 @@ class Database {
     }
 
     // Get row count
-    public function rowCount() {
+    public function rowCount(): int {
         return $this->stmt->rowCount();
     }
 }

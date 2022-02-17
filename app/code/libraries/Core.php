@@ -11,11 +11,11 @@ declare(strict_types=1);
 class Core {
     protected $currentDir = 'pages';
     protected $currentController = 'pages';
-    protected $currentMethod = 'index';
-    protected $params = [];
+    protected string $currentMethod = 'index';
+    protected array $params = [];
 
     public function __construct(){
-        //print_r($this->getUrl());
+        print_r($this->getUrl());
 
         $url = $this->getUrl();
 
@@ -27,8 +27,6 @@ class Core {
             // Unset 0 Index
             unset($url[0]);
         }
-
-        var_dump('values:', $this->currentDir, $this->currentController);
 
         // Require the controller
         require_once '../app/code/' . $this->currentDir . '/controllers/'.
@@ -53,12 +51,13 @@ class Core {
         // Get params
         $this->params = $url ? array_values($url) : [];
 
+
         // Call a callback with array of params
         call_user_func_array([$this->currentController, $this->currentMethod],
         $this->params);
     }
 
-    public function getUrl(){
+    public function getUrl() {
         if(isset($_GET['url'])){
             $url = rtrim($_GET['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);

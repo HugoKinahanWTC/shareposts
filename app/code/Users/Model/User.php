@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 class User {
-    private $db;
+    private Database $db;
 
     public function __construct() {
         $this->db = new Database();
     }
 
     // Register user
-    public function register($data) {
+    public function register($data): bool {
         $this->db->query('INSERT INTO users (name, email, password) 
                         VALUES (:name, :email, :password)');
         // Bind values
@@ -26,7 +26,7 @@ class User {
     }
 
     // Login user
-    public function login($email, $password) {
+    public function login(string $email, string $password): object {
         $this->db->query('SELECT * FROM users WHERE email = :email');
         $this->db->bind(':email', $email);
 
@@ -40,7 +40,7 @@ class User {
     }
 
     // Find user by email
-    public function findUserByEmail($email) {
+    public function findUserByEmail(string $email): bool {
         $this->db->query('SELECT * FROM users WHERE email = :email');
         // Bind values
         $this->db->bind(':email', $email);
@@ -55,7 +55,7 @@ class User {
     }
 
     // Get Users by ID
-    public function getUserById($id) {
+    public function getUserById(string $id): object {
         $this->db->query('SELECT * FROM users WHERE id = :id');
         // Bind values
         $this->db->bind(':id', $id);

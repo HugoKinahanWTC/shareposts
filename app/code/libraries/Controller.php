@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 class Controller {
     // Load model
-    public function model($dir, $model) {
+    public function model(string $dir, string $model): object {
         // Require model file
         require_once '../app/code/' . $dir . '/model/' . $model . '.php';
         // Instantiate the model
@@ -17,7 +17,7 @@ class Controller {
     }
 
     // Load View
-    public function view($dir, $view, $data = []) {
+    public function view(string $dir, string $view, array $data = []) {
         // Check for view file
         if (file_exists('../app/code/' . $dir . '/views/' . $view . '.php')) {
             require_once '../app/code/' . $dir . '/views/' . $view . '.php';
