@@ -15,7 +15,7 @@ class Core {
     protected array $params = [];
 
     public function __construct(){
-        print_r($this->getUrl());
+//        print_r($this->getUrl());
 
         $url = $this->getUrl();
 
@@ -23,7 +23,9 @@ class Core {
         if(isset($url[0]) && file_exists('../app/code/' . ucwords($url[0]))){
             // If exists, set as controller
             $this->currentDir = ucwords($url[0]);
+            var_dump('dir:', $this->currentDir);
             $this->currentController = ucwords($url[0]);
+            var_dump('cont:', $this->currentController);
             // Unset 0 Index
             unset($url[0]);
         }

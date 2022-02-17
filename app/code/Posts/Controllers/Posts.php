@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class Posts extends Controller {
 
-    
+
     public function __construct() {
         if (!isLoggedIn()) {
             redirect('posts/login');
