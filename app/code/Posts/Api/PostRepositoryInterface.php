@@ -1,34 +1,37 @@
 <?php
 
+require_once  APPROOT . '/Posts/Model/Post.php';
+
+
 interface PostRepositoryInterface {
 
     /*
-     * Posts Index view
-     * @return views/(index)
+     * Get Posts
+     * @return null|array
      */
-    public function index();
+    public function getPosts();
 
     /*
-     * Post Add view
-     * @return views/add
+     * Add a PostRepository
+     * @return null|bool
      */
-    public function add();
+    public function addPost(Post $postObj): bool;
 
     /*
-     * Post Edit view
-     * @return views/edit
+     * Update a PostRepository
+     * @return null|bool
      */
-    public function edit($id);
+    public function updatePost(Post $postObj): bool;
 
     /*
-     * Post Show view
-     * @return views/show
+     * Get single PostRepository by ID
+     * @return null|object
      */
-    public function show($id);
+    public function getPostById($id): object;
 
     /*
-     * Post Delete view
-     * @return views/delete
+     * Delete a post
+     * @return null|bool
      */
-    public function delete($id);
+    public function deletePost($id): bool;
 }

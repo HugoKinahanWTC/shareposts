@@ -23,12 +23,16 @@ class Core {
         if(isset($url[0]) && file_exists('../app/code/' . ucwords($url[0]))){
             // If exists, set as controller
             $this->currentDir = ucwords($url[0]);
-            var_dump('dir:', $this->currentDir);
+//            var_dump('Directory:', $this->currentDir);
             $this->currentController = ucwords($url[0]);
-            var_dump('cont:', $this->currentController);
+//            var_dump('Controller:', $this->currentController);
             // Unset 0 Index
             unset($url[0]);
         }
+
+
+        $controllerInclusion = '../app/code/' . $this->currentDir . '/controllers/'.
+            $this->currentController . '.php';
 
         // Require the controller
         require_once '../app/code/' . $this->currentDir . '/controllers/'.

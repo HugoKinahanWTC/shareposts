@@ -1,76 +1,62 @@
 <?php
 
-declare(strict_types=1);
+require_once  APPROOT . '/Posts/Api/Data/PostDataInterface.php';
 
-class Post {
-    private Database $db;
+class Post implements PostDataInterface
+{
+    private $data = [];
 
-    public function __construct() {
-        $this->db = new Database();
+    public function getId(): int
+    {
+        return (int) $this->__get(self::ID);
     }
 
-    public function getPosts(): array {
-        $this->db->query('SELECT *, 
-                            posts.id as post_id, 
-                            users.id as user_id 
-                            FROM posts 
-                            INNER JOIN users 
-                            ON posts.user_id = users.id 
-                            ORDER BY posts.created_at DESC');
-        $results = $this->db->resultSet();
-        return $results;
+    public function setId(int $id): int
+    {
+        return (int) $this->__set(self::ID, $id);
     }
 
-    public function addPost($data): bool {
-        $this->db->query('INSERT INTO posts (title, user_id, body) 
-                        VALUES (:title, :user_id, :body)');
-        // Bind values
-        $this->db->bind(':title', $data['title']);
-        $this->db->bind(':user_id', $data['user_id']);
-        $this->db->bind(':body', $data['body']);
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
+    public function getUserId(): int
+    {
+        return (int) $this->__get(self::USERID);
+    }
+
+    public function setUserId(int $id): int
+    {
+        return (int) $this->__set(self::USERID, $id);
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->__get(self::TITLE);
+    }
+
+    public function setTitle(string $title): string
+    {
+        return (string) $this->__set(self::TITLE, $title);
+    }
+
+    public function getBody(): string
+    {
+        return (string) $this->__get(self::BODY);
+    }
+
+    public function setBody(string $body): string
+    {
+        return (string) $this->__set(self::BODY, $body);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function __get($name)
+    {
+        if (!array_key_exists($name, $this->data)) {
+            return null;
         }
+
+        return $this->data[$name];
     }
-
-    public function updatePost($data): bool {
-        $this->db->query('UPDATE posts SET title = :title, body = :body WHERE id = :id;');
-        // Bind values
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':title', $data['title']);
-        $this->db->bind(':body', $data['body']);
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function getPostById($id): object {
-        $this->db->query('SELECT * FROM posts WHERE id = :id');
-        $this->db->bind(':id', $id);
-
-        $row = $this->db->single();
-
-        return $row;
-    }
-
-    public function deletePost($id): bool {
-        $this->db->query('DELETE from posts WHERE id = :id');
-        // Bind values
-        $this->db->bind(':id', $id);
-
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
 }

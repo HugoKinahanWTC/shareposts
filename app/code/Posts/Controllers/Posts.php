@@ -1,5 +1,8 @@
 <?php
-declare(strict_types=1);
+//declare(strict_types=1);
+
+require_once APPROOT . '/Posts/Model/Post.php';
+require_once  APPROOT . '/Posts/Model/PostRepository.php';
 
 class Posts extends Controller {
 
@@ -9,13 +12,14 @@ class Posts extends Controller {
             redirect('posts/login');
         }
 
-        $this->postModel = $this->model('posts','Post');
+       $this->postModel = $this->model('posts','PostRepository');
         $this->userModel = $this->model('users', 'User');
     }
 
     public function index() {
 
         // Get posts
+
         $posts = $this->postModel->getPosts();
 
         (array) $data = [
@@ -52,8 +56,20 @@ class Posts extends Controller {
 
             // Make sure no errors
             if (empty($data['title_err']) && empty($data['body_err'])) {
+
+                // Instantiate new Post Object
+                $postObj = new Post();
+
+                $postObj->setTitle(trim($_POST['title']));
+                $postObj->setBody(trim($_POST['body']));
+                $postObj->setUserId(trim($_SESSION['user_id']));
+
+                $postRepository = new PostRepository();
+
+                $postRepository->addPost($postObj);
+
                 // Validated
-                if ($this->postModel->addPost($data)) {
+                if ($this->postModel->addPost($postObj)) {
                     flash('post_message', 'Posts added successfully.');
                     redirect('posts');
                 } else {
@@ -98,10 +114,21 @@ class Posts extends Controller {
                 $data['body_err'] = 'Please enter the body text.';
             }
 
+            // Instantiate new Post Object
+            $postObj = new Post();
+
+            $postObj->setTitle(trim($_POST['title']));
+            $postObj->setBody(trim($_POST['body']));
+            $postObj->setId($id);
+
+            $postRepository = new PostRepository();
+
+            $postRepository->updatePost($postObj);
+
             // Make sure no errors
             if (empty($data['title_err']) && empty($data['body_err'])) {
                 // Validated
-                if ($this->postModel->updatePost($data)) {
+                if ($this->postModel->updatePost($postObj)) {
                     flash('post_message', 'Posts updated successfully.');
                     redirect('posts');
                 } else {

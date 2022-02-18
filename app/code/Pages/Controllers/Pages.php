@@ -14,6 +14,7 @@ class Pages extends Controller {
             'description' => 'Simple social network built on the MVC PHP framework.'
         ];
         $this->view('pages', 'index', $data);
+
     }
 
     public function about() {
@@ -24,7 +25,5 @@ class Pages extends Controller {
         ];
         $this->view('pages','about', $data);
     }
-
-
 
 }
